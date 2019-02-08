@@ -1,0 +1,29 @@
+body {
+    font-family: 'Source Code Pro', monospace;
+    color: #111111;
+}
+a {
+    color: #111111;
+}
+i {
+    color: #0077B5;
+}
+h1 {
+    font-size: 4em;
+}
+.bulletlist {
+    list-style: none;
+}
+.bulletlist li::before {
+    content: "•"; 
+    color: #0077B5;
+    display: inline-block; width: 1em;
+    margin-left: -1em;
+}
+
+.addreslist {
+    list-style-type: none;
+}
+.cvcolored {
+    color: #0077B5;
+}
