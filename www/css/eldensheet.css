@@ -5,6 +5,10 @@ body {
 a {
     color: #111111;
 }
+a:hover{
+    text-decoration: none;
+}
+
 i {
     color: #0077B5;
 }
@@ -26,4 +30,12 @@ h1 {
 }
 .cvcolored {
     color: #0077B5;
+}
+
+.cvcolored-btn {
+    color: #0077B5;
+    background-color: #fff;
+    border-color: #0077B5;
+    border: none;
+    margin-right: 0px; 
 }
