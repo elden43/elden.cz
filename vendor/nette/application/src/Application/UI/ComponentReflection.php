@@ -179,7 +179,7 @@ class ComponentReflection extends \ReflectionClass
 				$res[$i] = $param->getDefaultValue();
 			} elseif ($type === 'NULL' || $param->allowsNull()) {
 				$res[$i] = null;
-			} elseif ($type === 'array') {
+			} elseif ($type === 'array' || $type === 'iterable') {
 				$res[$i] = [];
 			} else {
 				throw new BadRequestException(sprintf(
@@ -210,16 +210,20 @@ class ComponentReflection extends \ReflectionClass
 		} elseif ($type === 'NULL') { // means 'not array'
 			return !is_array($val);
 
-		} elseif ($type === 'array') {
+		} elseif ($type === 'array' || $type === 'iterable') {
 			return is_array($val);
 
 		} elseif (!is_scalar($val)) { // array, resource, null, etc.
 			return false;
 
 		} else {
-			$old = $tmp = ($val === false ? '0' : (string) $val);
+			$tmp = ($val === false ? '0' : (string) $val);
+			if ($type === 'double' || $type === 'float') {
+				$tmp = preg_replace('#\.0*\z#', '', $tmp);
+			}
+			$orig = $tmp;
 			settype($tmp, $type);
-			if ($old !== ($tmp === false ? '0' : (string) $tmp)) {
+			if ($orig !== ($tmp === false ? '0' : (string) $tmp)) {
 				return false; // data-loss occurs
 			}
 			$val = $tmp;
@@ -348,3 +352,6 @@ class ComponentReflection extends \ReflectionClass
 		Nette\Utils\ObjectMixin::strictCall(get_class($this), $name);
 	}
 }
+
+
+class_exists(PresenterComponentReflection::class);

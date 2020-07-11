@@ -504,7 +504,7 @@ abstract class Presenter extends Control implements Application\IPresenter
 			return [$this->layout];
 		}
 		list($module, $presenter) = Helpers::splitName($this->getName());
-		$layout = $this->layout ? $this->layout : 'layout';
+		$layout = $this->layout ?: 'layout';
 		$dir = dirname($this->getReflection()->getFileName());
 		$dir = is_dir("$dir/templates") ? $dir : dirname($dir);
 		$list = [
@@ -1027,7 +1027,7 @@ abstract class Presenter extends Control implements Application\IPresenter
 			}
 
 			if (!isset($args[$name])) {
-				if (!$param->isDefaultValueAvailable() && !$param->allowsNull() && $type !== 'NULL' && $type !== 'array') {
+				if (!$param->isDefaultValueAvailable() && !$param->allowsNull() && $type !== 'NULL' && $type !== 'array' && $type !== 'iterable') {
 					$missing[] = $param;
 					unset($args[$name]);
 				}

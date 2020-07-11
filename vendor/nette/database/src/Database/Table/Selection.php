@@ -640,7 +640,8 @@ class Selection implements \Iterator, IRowContainer, \ArrayAccess, \Countable
 			$this->generalCacheKey = null;
 		}
 
-		$this->rows = null;
+		$null = null;
+		$this->rows = &$null;
 		$this->specificCacheKey = null;
 		$this->refCache['referencingPrototype'] = [];
 		if ($deleteRererencedCache) {
@@ -812,6 +813,10 @@ class Selection implements \Iterator, IRowContainer, \ArrayAccess, \Countable
 	 */
 	public function insert($data)
 	{
+		//should be called before query for not to spoil PDO::lastInsertId
+		$primarySequenceName = $this->getPrimarySequence();
+		$primaryAutoincrementKey = $this->context->getStructure()->getPrimaryAutoincrementKey($this->name);
+
 		if ($data instanceof self) {
 			$return = $this->context->queryArgs($this->sqlBuilder->buildInsertQuery() . ' ' . $data->getSql(), $data->getSqlBuilder()->getParameters());
 
@@ -828,9 +833,6 @@ class Selection implements \Iterator, IRowContainer, \ArrayAccess, \Countable
 			unset($this->refCache['referencing'][$this->getGeneralCacheKey()][$this->getSpecificCacheKey()]);
 			return $return->getRowCount();
 		}
-
-		$primarySequenceName = $this->getPrimarySequence();
-		$primaryAutoincrementKey = $this->context->getStructure()->getPrimaryAutoincrementKey($this->name);
 
 		$primaryKey = [];
 		foreach ((array) $this->primary as $key) {

@@ -5,6 +5,8 @@
  * Copyright (c) 2008 David Grudl (https://davidgrudl.com)
  */
 
+declare(strict_types=1);
+
 namespace Latte;
 
 
@@ -13,7 +15,8 @@ namespace Latte;
  */
 class MacroTokens extends TokenIterator
 {
-	const T_WHITESPACE = 1,
+	public const
+		T_WHITESPACE = 1,
 		T_COMMENT = 2,
 		T_SYMBOL = 3,
 		T_NUMBER = 4,
@@ -26,12 +29,12 @@ class MacroTokens extends TokenIterator
 	/** @var int */
 	public $depth = 0;
 
-	/** @var Tokenizer */
+	/** @var Tokenizer|null */
 	private static $tokenizer;
 
 
 	/**
-	 * @param  string|array
+	 * @param  string|array  $input
 	 */
 	public function __construct($input = [])
 	{
@@ -40,17 +43,17 @@ class MacroTokens extends TokenIterator
 	}
 
 
-	public function parse($s)
+	public function parse(string $s): array
 	{
 		self::$tokenizer = self::$tokenizer ?: new Tokenizer([
 			self::T_WHITESPACE => '\s+',
 			self::T_COMMENT => '(?s)/\*.*?\*/',
 			self::T_STRING => Parser::RE_STRING,
-			self::T_KEYWORD => '(?:true|false|null|TRUE|FALSE|NULL|INF|NAN|and|or|xor|clone|new|instanceof|return|continue|break)(?![\w\pL_])', // keyword
+			self::T_KEYWORD => '(?:true|false|null|TRUE|FALSE|NULL|INF|NAN|and|or|xor|clone|new|instanceof|return|continue|break)(?!\w)', // keyword
 			self::T_CAST => '\((?:expand|string|array|int|integer|float|bool|boolean|object)\)', // type casting
-			self::T_VARIABLE => '\$[\w\pL_]+',
+			self::T_VARIABLE => '\$\w+',
 			self::T_NUMBER => '[+-]?[0-9]+(?:\.[0-9]+)?(?:e[0-9]+)?',
-			self::T_SYMBOL => '[\w\pL_]+(?:-+[\w\pL_]+)*',
+			self::T_SYMBOL => '\w+(?:-+\w+)*',
 			self::T_CHAR => '::|=>|->|\+\+|--|<<|>>|<=>|<=|>=|===|!==|==|!=|<>|&&|\|\||\?\?|\?>|\*\*|\.\.\.|[^"\']', // =>, any char except quotes
 		], 'u');
 		return self::$tokenizer->tokenize($s);
@@ -61,7 +64,7 @@ class MacroTokens extends TokenIterator
 	 * Appends simple token or string (will be parsed).
 	 * @return static
 	 */
-	public function append($val, $position = null)
+	public function append($val, int $position = null)
 	{
 		if ($val != null) { // intentionally @
 			array_splice(
@@ -90,20 +93,18 @@ class MacroTokens extends TokenIterator
 
 	/**
 	 * Reads single token (optionally delimited by comma) from string.
-	 * @return string
 	 */
-	public function fetchWord()
+	public function fetchWord(): ?string
 	{
 		$words = $this->fetchWords();
-		return $words ? implode(':', $words) : false;
+		return $words ? implode(':', $words) : null;
 	}
 
 
 	/**
 	 * Reads single tokens delimited by colon from string.
-	 * @return array
 	 */
-	public function fetchWords()
+	public function fetchWords(): array
 	{
 		do {
 			$words[] = $this->joinUntil(self::T_WHITESPACE, ',', ':');
@@ -126,7 +127,7 @@ class MacroTokens extends TokenIterator
 	}
 
 
-	protected function next()
+	protected function next(): void
 	{
 		parent::next();
 		if ($this->isCurrent('[', '(', '{')) {

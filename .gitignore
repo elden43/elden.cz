@@ -5,6 +5,7 @@ log/
 temp/
 
 #IDE specific
+.idea/
 nbproject/private/
 build/
 nbbuild/

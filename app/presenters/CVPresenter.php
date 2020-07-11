@@ -2,13 +2,11 @@
 
 namespace App\Presenters;
 
-use Nette;
-
 
 final class CVPresenter extends BasePresenter
 {        
     public function renderBasic($lang = 'cz'){
-        $this->template->lang = $lang;        
+        $this->template->lang = $lang;
     }    
     
     public function handleToggleLang($lang){  

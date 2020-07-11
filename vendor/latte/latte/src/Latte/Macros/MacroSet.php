@@ -5,6 +5,8 @@
  * Copyright (c) 2008 David Grudl (https://davidgrudl.com)
  */
 
+declare(strict_types=1);
+
 namespace Latte\Macros;
 
 use Latte;
@@ -13,9 +15,9 @@ use Latte\MacroNode;
 
 
 /**
- * Base IMacro implementation. Allows add multiple macros.
+ * Base Macro implementation. Allows add multiple macros.
  */
-class MacroSet implements Latte\IMacro
+class MacroSet implements Latte\Macro
 {
 	use Latte\Strict;
 
@@ -32,7 +34,7 @@ class MacroSet implements Latte\IMacro
 	}
 
 
-	public function addMacro($name, $begin, $end = null, $attr = null, $flags = null)
+	public function addMacro(string $name, $begin, $end = null, $attr = null, int $flags = null)
 	{
 		if (!$begin && !$end && !$attr) {
 			throw new \InvalidArgumentException("At least one argument must be specified for macro '$name'.");
@@ -64,6 +66,7 @@ class MacroSet implements Latte\IMacro
 	 */
 	public function finalize()
 	{
+		return null;
 	}
 
 
@@ -73,7 +76,7 @@ class MacroSet implements Latte\IMacro
 	 */
 	public function nodeOpened(MacroNode $node)
 	{
-		list($begin, $end, $attr) = $this->macros[$node->name];
+		[$begin, $end, $attr] = $this->macros[$node->name];
 		$node->empty = !$end;
 
 		if (
@@ -86,7 +89,7 @@ class MacroSet implements Latte\IMacro
 		}
 
 		if (
-			$node->args
+			$node->args !== ''
 			&& (!$begin || (is_string($begin) && strpos($begin, '%node') === false))
 			&& (!$end || (is_string($end) && strpos($end, '%node') === false))
 			&& (!$attr || (is_string($attr) && strpos($attr, '%node') === false))
@@ -105,9 +108,12 @@ class MacroSet implements Latte\IMacro
 			}
 			$node->context[1] = Latte\Compiler::CONTEXT_HTML_TEXT;
 
+		} elseif ($node->empty && $node->prefix) {
+			return false;
+
 		} elseif ($begin) {
 			$res = $this->compile($node, $begin);
-			if ($res === false || ($node->empty && $node->prefix)) {
+			if ($res === false) {
 				return false;
 			} elseif (!$node->openingCode && is_string($res) && $res !== '') {
 				$node->openingCode = "<?php $res ?>";
@@ -116,6 +122,7 @@ class MacroSet implements Latte\IMacro
 		} elseif (!$end) {
 			return false;
 		}
+		return null;
 	}
 
 
@@ -141,24 +148,21 @@ class MacroSet implements Latte\IMacro
 	private function compile(MacroNode $node, $def)
 	{
 		$node->tokenizer->reset();
-		$writer = Latte\PhpWriter::using($node);
+		$writer = Latte\PhpWriter::using($node, $this->compiler);
 		return is_string($def)
 			? $writer->write($def)
-			: call_user_func($def, $node, $writer);
+			: $def($node, $writer);
 	}
 
 
-	/**
-	 * @return Latte\Compiler
-	 */
-	public function getCompiler()
+	public function getCompiler(): Latte\Compiler
 	{
 		return $this->compiler;
 	}
 
 
 	/** @internal */
-	protected function checkExtraArgs(MacroNode $node)
+	protected function checkExtraArgs(MacroNode $node): void
 	{
 		if ($node->tokenizer->isNext()) {
 			$args = Latte\Runtime\Filters::truncate($node->tokenizer->joinAll(), 20);
