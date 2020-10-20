@@ -33,7 +33,7 @@ final class Versions
   'http-interop/http-factory-guzzle' => '1.0.0@34861658efb9899a6618cef03de46e2a52c80fc0',
   'jean85/pretty-package-versions' => '1.5.0@e9f4324e88b8664be386d90cf60fbc202e1f7fc9',
   'latte/latte' => 'v2.8.1@fc94bd63fe995b40cb219109026e76f281c709c2',
-  'nette/application' => 'v2.4.15@3a3870908fe318c83b2c0ef7fca1f2244d365932',
+  'nette/application' => 'v2.4.16@e32c04de211873c792d13d9a00c50083b8e05a23',
   'nette/bootstrap' => 'v2.4.6@268816e3f1bb7426c3a4ceec2bd38a036b532543',
   'nette/caching' => 'v2.5.9@d93ef446836a5a0ff7ef78d5ffebb7fe043f9953',
   'nette/component-model' => 'v2.4.0@6e7980f5ddec31f68a39e767799b1b0be9dd1014',
@@ -74,7 +74,7 @@ final class Versions
   'symfony/polyfill-uuid' => 'v1.17.1@5db3e66818f1f768b585220438436ea6c1e0b874',
   'tracy/tracy' => 'v2.6.8@d3bb9f43692df5e3b83ab8004d3e6208034ac0ca',
   'nette/tester' => 'v2.3.2@793aa4bb87872319902a569ed84a64844fdc1549',
-  'nette/web-project' => 'dev-master@ceb002e6950f8b31009e2fb50b6abbd8d930ce50',
+  'nette/web-project' => 'dev-master@c06eb73858a5ae4818dbe6d36f9822bbf0d8bd9b',
 );
 
     private function __construct()
