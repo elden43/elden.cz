@@ -1,0 +1,5 @@
+parameters:
+
+sentry:
+	client:
+		environment: production

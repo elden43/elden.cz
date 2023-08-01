@@ -1,0 +1,16 @@
+search:
+	-
+		in: %appDir%
+		classes:
+			- *Factory
+			- *Facade
+
+
+services:
+	- App\Router\RouterFactory::createRouter
+	- Contributte\Sentry\Performance\NetteApplicationMonitor
+
+	application.application:
+		setup:
+			- @Contributte\Sentry\Performance\NetteApplicationMonitor::hook(@self, 'onRequest')
+			- @Contributte\Sentry\Performance\NetteApplicationMonitor::hook(@self, 'onShutdown')

@@ -1,0 +1,32 @@
+parameters:
+
+
+application:
+	errorPresenter: Error
+	mapping:
+		*: App\*Module\Presenters\*Presenter
+
+
+session:
+	expiration: 14 days
+
+
+di:
+	export:
+		parameters: no
+		tags: no
+
+extensions:
+	sentry: Contributte\Sentry\DI\SentryExtension
+
+sentry:
+	enable: true
+	integrations: true
+	client:
+		dsn: 'https://e3562749c5f3420bb80354941b82936f@o339144.ingest.sentry.io/5328820'
+		send_attempts: 3
+		sample_rate: 1
+		attach_stacktrace: true
+		context_lines: 6
+		enable_compression: true
+		traces_sample_rate: 1

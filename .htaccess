@@ -1,5 +1,2 @@
 RewriteEngine On
-RewriteCond %{HTTP_HOST} ^(www\.)?elden\.cz$
-RewriteRule ^$ www/ [L]
-RewriteCond %{HTTP_HOST} ^(www\.)?elden\.cz$
 RewriteRule (.*) www/$1 [L]

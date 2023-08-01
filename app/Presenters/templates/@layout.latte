@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Global Site Tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=GA_TRACKING_ID"></script>
+    <script>
+        window.dataLayer = window.dataLayer || []
+
+        function gtag() {
+            dataLayer.push(arguments)
+        }
+
+        gtag('js', new Date())
+
+        gtag('config', 'UA-134151695-1')
+    </script>
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Web developer Jakub Jandák Introduction - CV, code examples and more...">
+    <meta name="keywords"
+          content="PHP developer, PHP, Nette, HTML, CSS, Leanmapper, Dibi, Git, Github, Gitlab, CVS, Mercurial">
+    <meta name="author" content="Jakub Jandák">
+
+    <!-- favicon -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+
+    <!-- Bootstrap CSS-->
+    <link rel="stylesheet" href="{$basePath}/bootstrap/css/bootstrap.min.css">
+    <!-- Font Awesome-->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css"
+          integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+    <!-- Flags-->
+    <link href="{$basePath}/flag-icon-css-master/css/flag-icon.min.css" rel="stylesheet" type="text/css"/>
+    <!-- custom-->
+    <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet">
+    <link rel="stylesheet" href="{$basePath}/css/eldensheet.css">
+
+    <link rel="stylesheet" type="text/css" href="{$basePath}/nitro/nittro.min.css"/>
+    <script type="application/javascript" src="{$basePath}/nitro/nittro.min.js" async defer></script>
+
+    <title>Jakub "Elden" Jandák</title>
+</head>
+<body>
+<div class="container mt-3 mb-5">
+    <div class="row">
+        <div class="col-sm-12 text-right">
+            {snippet flags}
+                <div class="dropdown jjmr6">
+                    <button class="btn btn-secondary btn-sm dropdown-toggle cvcolored-btn" type="button"
+                            id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        {if $lang === 'cz'}Language: Czech <span class="flag-icon flag-icon-cz"></span>{/if}
+                                {if $lang === 'en'}Language: English <span class="flag-icon flag-icon-gb"></span>{/if}
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <button class="dropdown-item btn-sm text-right {if $lang === 'cz'}active{/if}" type="button">
+                            <a n:href = "toggleLang! cz" class="nittro-transition-fade">Czech <span
+                                        class="flag-icon flag-icon-cz"></span></a>
+                        </button>
+                        <button class="dropdown-item btn-sm text-right {if $lang === 'en'}active{/if}" type="button">
+                            <a n:href = "toggleLang! en" class="nittro-transition-fade">English <span
+                                        class="flag-icon flag-icon-gb"></span></a>
+                        </button>
+                    </div>
+                </div>
+            {/snippet flags}
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-2"><img src="{$basePath}/images/me_and_bird.jpg" class="img-fluid rounded"></div>
+        <div class="col-sm-5"><h1>Jakub Jandák</h1></div>
+        <div class="col-sm-5">
+            <ul class="text-right addreslist">
+                <li>Jalubí 627, Jalubí, CZ <i class="fas fa-map-marker-alt"></i></li>
+                <li>+420 603 181 023 <i class="fas fa-phone"></i></li>
+                <li><a href="mailto:jakub@elden.cz" title="Mail to Jakub Jandak">jakub@elden.cz</a> <i
+                            class="fas fa-envelope"></i></li>
+                <li><a href="https://www.linkedin.com/in/jakub-jandak/" target="_blank" title="Jakub Jandak linkedin">linkedin.com/in/jakub-jandak</a>
+                    <i class="fab fa-linkedin"></i></li>
+                <li><a href="http://www.elden.cz" title="Jakub Jandák">www.elden.cz</a> <i class="fas fa-globe"></i>
+                </li>
+                <li><a href="https://github.com/elden43" title="Jakub Jandák Github">github.com/elden43 </a> <i
+                            class="fab fa-github"></i></li>
+            </ul>
+        </div>
+    </div>
+    {include content}
+</div>
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="{$basePath}/js/jquery-3.3.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"
+        integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
+        crossorigin="anonymous"></script>
+<script src="{$basePath}/bootstrap/js/bootstrap.min.js"></script>
+</body>
+</html>
