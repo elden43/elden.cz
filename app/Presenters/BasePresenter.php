@@ -20,6 +20,7 @@ class BasePresenter extends Nette\Application\UI\Presenter
 
     public function handleToggleLang(string $lang): void
     {
+        $this->getSession(self::SESSION_SETTINGS_KEY)->set(self::SESSION_LANG_KEY, $lang);
         $this->getTemplate()->lang = $lang;
         if ($this->isAjax()) {
             $this->redrawControl('flags');
