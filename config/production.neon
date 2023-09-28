@@ -3,3 +3,4 @@ parameters:
 sentry:
 	client:
 		environment: production
+		traces_sample_rate: 1
