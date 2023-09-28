@@ -3,3 +3,5 @@ parameters:
 sentry:
 	client:
 		environment: local
+		traces_sample_rate: 1
+		profiles_sample_rate: 1

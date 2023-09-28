@@ -1,7 +1,8 @@
 {block content}
 {snippet cv}
+    {varType string $lang}
     <div class="nittro-transition-auto nittro-transition-fade">
-        {if (isset($lang) && $lang === 'cz') || !isset($lang)}
+        {if ($lang === App\Presenters\BasePresenter::LANG_CZ)}
             <div class="row mt-3">
                 <div class="col-sm-12">
                     <h2>Jsem...</h2>
@@ -118,7 +119,7 @@
                 </div>
             </div>
         {/if}
-        {if isset($lang) && $lang === 'en'}
+        {if $lang === App\Presenters\BasePresenter::LANG_EN}
             <div class="row mt-3">
                 <div class="col-sm-12">
                     <h2>I am...</h2>

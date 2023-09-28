@@ -29,4 +29,3 @@ sentry:
 		attach_stacktrace: true
 		context_lines: 6
 		enable_compression: true
-		traces_sample_rate: 1

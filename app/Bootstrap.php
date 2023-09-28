@@ -10,7 +10,6 @@ use Nette\Bootstrap\Configurator;
 class Bootstrap
 {
     private const APPLICATION_NAME = 'ELDENCZ';
-
     private const APPLICATION_MODE_LOCAL = 'local';
     private const APPLICATION_MODE_STAGING = 'staging';
     private const APPLICATION_MODE_PRODUCTION = 'production';

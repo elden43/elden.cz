@@ -1,3 +1,4 @@
+{varType string $lang}
 <!doctype html>
 <html lang="en">
 <head>
@@ -53,16 +54,16 @@
                 <div class="dropdown jjmr6">
                     <button class="btn btn-secondary btn-sm dropdown-toggle cvcolored-btn" type="button"
                             id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        {if $lang === 'cz'}Language: Czech <span class="flag-icon flag-icon-cz"></span>{/if}
-                                {if $lang === 'en'}Language: English <span class="flag-icon flag-icon-gb"></span>{/if}
+                        {if $lang === App\Presenters\BasePresenter::LANG_CZ}Language: Czech <span class="flag-icon flag-icon-cz"></span>{/if}
+                                {if $lang === App\Presenters\BasePresenter::LANG_EN}Language: English <span class="flag-icon flag-icon-gb"></span>{/if}
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <button class="dropdown-item btn-sm text-right {if $lang === 'cz'}active{/if}" type="button">
-                            <a n:href = "toggleLang! cz" class="nittro-transition-fade">Czech <span
+                        <button class="dropdown-item btn-sm text-right {if $lang === App\Presenters\BasePresenter::LANG_CZ}active{/if}" type="button">
+                            <a n:href = "toggleLang! App\Presenters\BasePresenter::LANG_CZ" class="nittro-transition-fade">Czech <span
                                         class="flag-icon flag-icon-cz"></span></a>
                         </button>
-                        <button class="dropdown-item btn-sm text-right {if $lang === 'en'}active{/if}" type="button">
-                            <a n:href = "toggleLang! en" class="nittro-transition-fade">English <span
+                        <button class="dropdown-item btn-sm text-right {if $lang === App\Presenters\BasePresenter::LANG_EN}active{/if}" type="button">
+                            <a n:href = "toggleLang! App\Presenters\BasePresenter::LANG_EN" class="nittro-transition-fade">English <span
                                         class="flag-icon flag-icon-gb"></span></a>
                         </button>
                     </div>
