@@ -31,10 +31,3 @@ sentry:
 		attach_stacktrace: true
 		context_lines: 6
 		enable_compression: true
-
-services:
-	- Contributte\Sentry\Performance\NetteApplicationMonitor
-	application.application:
-		setup:
-			- @Contributte\Sentry\Performance\NetteApplicationMonitor::hook(@self, 'onRequest')
-			- @Contributte\Sentry\Performance\NetteApplicationMonitor::hook(@self, 'onShutdown')
