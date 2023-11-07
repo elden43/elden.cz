@@ -2,9 +2,9 @@
 
 namespace App\Presenters;
 
-class TesterPresenter
+class TesterPresenter extends BasePresenter
 {
-    public function renderTest()
+    public function renderTest(): void
     {
         dump(\CURL_SSLVERSION_TLSv1_2);
     }
